@@ -25,3 +25,5 @@ Kyk giriş portalına yoğunluktan dolayı ulaşmak oldukça zor. Portala giriş
 pip3 install selenium
 
 ```
+- Kaynak kodun içerisine kullanıcı adı , parolayı girin
+- python3 kyk.py
