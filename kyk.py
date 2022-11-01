@@ -105,7 +105,7 @@ def main():
                 driver.quit()
                 break
         except TimeoutException:
-            print(":( Time out error \n")
+            print(":( Time out error \n",end="\n")
             terror += 1
         except KeyboardInterrupt:
             logout()
