@@ -4,7 +4,7 @@
       / /| |   / /_/ /  / ,<    _   / /_/ / / /_/ /
      /_/ |_|   \__, /  /_/|_|  (_) / .___/  \__, /
               /____/              /_/      /____/
-              
+
 ## Açıklama
 Kyk giriş portalına yoğunluktan dolayı ulaşmak oldukça zor. Portala giriş yaptıktan sonra sayfayı belirli aralıklarla yenilenmediğiniz taktirde internet kesilmekte . Sayfayı yenilediğiniz anda internet geri gelmektedir . Bu sorunları aşmak için python + selenium ile geliştirilmiş bir araçtır .
 
@@ -13,7 +13,7 @@ Kyk giriş portalına yoğunluktan dolayı ulaşmak oldukça zor. Portala giriş
   - Zaten giriş yapılmışsa bunu algılar
 - 5 saniyede bir sayfayı yeniler
 - Herhangi bir hata sonucunda Chrome driver otomatik şekilde yeniden başlatılır
-- Kullanıcı aracı sonlandırmak için ctrl+c kombinasyonuna bastığında Kyk portalında oturum sonlandırılır .
+- Kullanıcı aracı sonlandırmak için ctrl+c kombinasyonuna bastığında Kyk portalında oturum sonlandırılır .(Stabil değil iyileştirme gerekli)
 
 
 ## Kurulum && Kullanım
@@ -27,3 +27,6 @@ pip3 install selenium
 ```
 - Kaynak kodun içerisine kullanıcı adı , parolayı girin
 - python3 kyk.py
+
+
+![](https://github.com/melihi/kyk.py/blob/main/demo.png?raw=true)

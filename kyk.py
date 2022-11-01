@@ -16,21 +16,24 @@ url = "https://wifi.gsb.gov.tr/"
 
 
 def logout():
-    print(":) Trying to logut wifi.gsb.gov.tr ...")
+    print("\n:) Trying to logut wifi.gsb.gov.tr ...\n")
+    try:
+        driver.execute_script(
+            "document.getElementsByName('servisUpdateForm:j_idt136')[0].click();"
+        )
 
-    driver.execute_script(
-        "document.getElementsByName('servisUpdateForm:j_idt136')[0].click();"
-    )
+        driver.get("https://google.com")
 
-    driver.get("https://google.com")
+        if driver.title == "Google":
+            print(":( Logout failed . Login and logout manually !")
 
-    if driver.title == "Google":
-        print(":( Logout failed . Login and logout manually !")
+        print(":) Logout success byee .")
+        driver.quit()
 
-    print(":) Logout success byee .")
-    driver.quit()
-    exit(0)
-
+    except:
+        print(":( Logout failed . Exiting ... ")
+    finally:
+         exit(0)
 
 def succ(i, terror):
     a = ((i - terror) / i) * 100
@@ -87,6 +90,7 @@ def main():
             driver.quit()
             print("\n:( Restarting driver ...")
         except KeyboardInterrupt:
+            print(":( Keeyboard interrupt detected .")
             exit(0)
         except:
             print(":( Unkown error . Something bad happened ...")
@@ -96,46 +100,50 @@ def main():
     driver.execute_script("window.open('http://melih.ninja');")
     i = 0
     terror = 0
-    while True:
-        try:
-            driver.get(url)
-            if driver.title == "Giriş":
-
-                print("\n:( Your session ended unexpectedly ...  Exiting ")
+    try:
+        while True:
+            try:
+                driver.get(url)
+                if driver.title == "Giriş":
+                    print("\n:( Your session ended unexpectedly ...  Exiting ")
+                    driver.quit()
+                    break
+            except TimeoutException:
+                print(":( Time out error \n",end="\n")
+                terror += 1
+            except KeyboardInterrupt:
+                pass
+            except WebDriverException as e:
+                print(
+                    ":( WebDriverException . Something bad happened ... Restarting webdriver ...\n",
+                    e,
+                    end="\n",
+                )
                 driver.quit()
-                break
-        except TimeoutException:
-            print(":( Time out error \n",end="\n")
-            terror += 1
-        except KeyboardInterrupt:
-            logout()
-        except WebDriverException as e:
-            print(
-                ":( WebDriverException . Something bad happened ... Restarting webdriver ...\n",
-                e,
-                end="\n",
-            )
-            driver.quit()
-            driver = webdriver.Chrome(path)
-            driver.set_page_load_timeout(timeout)
-            driver.get(url)
-        except:
-            print(
-                ":( Unknown error . Something bad happened ... Restarting webdriver ...\n",
-                end="\n",
-            )
-            driver.quit()
-            driver = webdriver.Chrome(path)
-            driver.set_page_load_timeout(timeout)
-            driver.get(url)
+                driver = webdriver.Chrome(path)
+                driver.set_page_load_timeout(timeout)
+                driver.get(url)
+            except:
+                print(
+                    ":( Unknown error . Something bad happened ... Restarting webdriver ...\n",
+                    end="\n",
+                )
+                driver.quit()
+                driver = webdriver.Chrome(path)
+                driver.set_page_load_timeout(timeout)
+                driver.get(url)
 
-        i += 1
-        print(
-            "Total request : %d  | Timeout Error : %d | Succes rate : %.2f "
-            % (i, terror, succ(i, terror)),
-            end="\r",
-        )
-        time.sleep(5)
+            i += 1
+            print(
+                "Total request : %d  | Timeout Error : %d | Succes rate : %.2f "
+                % (i, terror, succ(i, terror)),
+                end="\r",
+            )
+            # * refresh rate 5 seconds
+            time.sleep(5)
+    
+    except:
+        logout()
 
 
 main()
